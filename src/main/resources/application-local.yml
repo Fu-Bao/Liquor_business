@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+    import:
+      - application-jwt.yaml
+      - application-oauth.yaml
+  datasource:
+    url: jdbc:mariadb://
