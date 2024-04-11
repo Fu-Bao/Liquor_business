@@ -1,45 +1,44 @@
-package com.github.liquor_business.domain.auth.entity;
+package com.github.liquor_business.domain.user.dto;
 
-import com.github.liquor_business.domain.user.entitiy.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
-
-    private UserEntity userEntity;
+    private Long user_id;
+    private String email;
+    private String password;
+    private List<String> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collect = new ArrayList<>();
-        collect.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return userEntity.getRole().name();
-            }
-        });
-
-        return collect;
+        return authorities.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     @Override
     public String getPassword() {
-        return userEntity.getPassword();
+        return this.password;
+    }
+
+    public String getEmail() {
+        return this.email;
     }
 
     @Override
     public String getUsername() {
-        return userEntity.getEmail();
+        return null;
     }
 
     @Override
