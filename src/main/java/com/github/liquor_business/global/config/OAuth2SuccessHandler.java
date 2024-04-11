@@ -37,10 +37,10 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             Authentication authentication) throws IOException, SecurityException {
 
         CustomOAuth2User oAuth2User = (CustomOAuth2User) authentication.getPrincipal();
-        String userId = oAuth2User.getName();
+//        String userId = oAuth2User.getName();
         String email = oAuth2User.getEmail();
         String accessToken = jwtTokenUtil.createAccessToken(email);
-        String refreshToken = null;
+        String refreshToken;
 
         User user = userRepository.findByEmail(email).orElseThrow(
                 () -> new AppException(ErrorCode.USER_NOT_FOUND.getMessage(), ErrorCode.USER_NOT_FOUND)

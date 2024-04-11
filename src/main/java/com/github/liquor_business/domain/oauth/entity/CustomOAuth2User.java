@@ -1,6 +1,7 @@
 package com.github.liquor_business.domain.oauth.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class CustomOAuth2User implements OAuth2User {
 
     private String socialUserId;
+    @Getter
     private String email;
 
 
@@ -33,8 +35,5 @@ public class CustomOAuth2User implements OAuth2User {
         return this.socialUserId;
     }
 
-    public String getEmail() {
-        return this.email;
-    }
 }
 

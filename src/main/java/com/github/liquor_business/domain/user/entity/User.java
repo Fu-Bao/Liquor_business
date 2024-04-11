@@ -16,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
 public class User {
@@ -24,14 +24,19 @@ public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "username")
     private String userName;
+
     @Column(name = "password")
     private String password;
+
     @Column(name = "social_type")
     private String socialType;
+
     @Column(name = "social_id")
     private String socialId;
 

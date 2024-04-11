@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
     private Long user_id;
+    @Getter
     private String email;
     private String password;
     private List<String> authorities;
@@ -30,10 +31,6 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public String getPassword() {
         return this.password;
-    }
-
-    public String getEmail() {
-        return this.email;
     }
 
     @Override

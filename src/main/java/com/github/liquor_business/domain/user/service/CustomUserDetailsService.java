@@ -25,13 +25,11 @@ public class CustomUserDetailsService implements UserDetailsService {
                 () -> new AppException(ErrorCode.USER_NOT_FOUND.getMessage(), ErrorCode.USER_NOT_FOUND)
         );
 
-        CustomUserDetails customUserDetails = CustomUserDetails.builder()
+        return CustomUserDetails.builder()
                 .user_id(user.getId())
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .authorities(user.getRoles().stream().map(UserRole::getRole).map(Role::getRoleName).toList())
                 .build();
-
-        return customUserDetails;
     }
 }
