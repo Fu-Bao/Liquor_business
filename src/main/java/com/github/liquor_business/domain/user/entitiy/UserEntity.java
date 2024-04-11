@@ -21,8 +21,11 @@ public class UserEntity {
     private Long userId;
 
     private String email;
+
     private String password;
+
     private String username;
+
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)
