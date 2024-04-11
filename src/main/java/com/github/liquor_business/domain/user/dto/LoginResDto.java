@@ -14,9 +14,6 @@ public class LoginResDto {
     private String userName;
     private String email;
     private String password;
-    private String phoneNumber;
-    private String address;
-    private String gender;
     private String socialName;
     private String socialUserId;
     private String accessToken;
@@ -25,16 +22,12 @@ public class LoginResDto {
     private LocalDateTime deletedAt;
 
     public LoginResDto(User user) {
-        this.userId = user.getUserId();
+        this.userId = user.getId();
         this.userName = user.getUserName();
         this.email = user.getEmail();
         this.password = user.getPassword();
-        this.phoneNumber = user.getPhoneNumber();
-        this.address = user.getAddress();
-        this.gender = user.getGender();
-        this.socialName = user.getSocialName();
-        this.socialUserId = user.getSocialUserId();
+        this.socialName = user.getSocialType();
+        this.socialUserId = user.getSocialId();
         this.createAt = user.getCreateAt();
-        this.deletedAt = user.getDeletedAt();
     }
 }

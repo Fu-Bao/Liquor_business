@@ -46,7 +46,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
                 () -> new AppException(ErrorCode.USER_NOT_FOUND.getMessage(), ErrorCode.USER_NOT_FOUND)
         );
 
-        RefreshToken findRefreshToken = refreshTokenRepository.findByUserUserId(user.getUserId()).orElse(
+        RefreshToken findRefreshToken = refreshTokenRepository.findByUserId(user.getId()).orElse(
                 null
         );
 

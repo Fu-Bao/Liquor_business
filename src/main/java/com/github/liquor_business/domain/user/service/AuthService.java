@@ -47,7 +47,6 @@ public class AuthService {
         User newUser = User.builder()
                 .email(signupDTO.getEmail())
                 .password(passwordEncoder.encode(signupDTO.getPassword()))
-                .address("aaaa")
                 .build();
 
         Role role = roleRepository.findByRoleName("ROLE_USER").orElseThrow(
@@ -73,9 +72,9 @@ public class AuthService {
                 () -> new AppException(ErrorCode.USER_NOT_FOUND.getMessage(), ErrorCode.USER_NOT_FOUND)
         );
 
-        if (findUser.getDeletedAt() != null) {
-            throw new AppException(ErrorCode.USER_NOT_FOUND.getMessage(), ErrorCode.USER_NOT_FOUND);
-        }
+//        if (findUser.getDeletedAt() != null) {
+//            throw new AppException(ErrorCode.USER_NOT_FOUND.getMessage(), ErrorCode.USER_NOT_FOUND);
+//        }
 
         if(passwordEncoder.matches(findUser.getPassword(), loginReqDto.getPassword())) {
             throw new AppException(ErrorCode.USER_PASSWORD_UNMATCHED.getMessage(), ErrorCode.USER_PASSWORD_UNMATCHED);
@@ -85,7 +84,7 @@ public class AuthService {
 
         String accessToken = jwtTokenUtil.createAccessToken(findUser.getEmail());
         response.addHeader(Constants.HEADER_ACCESS_TOKEN_KEY, accessToken);
-        Optional<RefreshToken> refreshToken = refreshTokenRepository.findByUserUserId(findUser.getUserId());
+        Optional<RefreshToken> refreshToken = refreshTokenRepository.findByUserId(findUser.getId());
 
         loginResponseDto.setAccessToken(accessToken);
 
@@ -115,7 +114,7 @@ public class AuthService {
                 () -> new AppException(ErrorCode.USER_NOT_FOUND.getMessage(), ErrorCode.USER_NOT_FOUND)
         );
 
-        RefreshToken refreshToken = refreshTokenRepository.findByUserUserId(user.getUserId()).orElseThrow(
+        RefreshToken refreshToken = refreshTokenRepository.findByUserId(user.getId()).orElseThrow(
                 () -> new AppException(ErrorCode.TOKEN_NOT_FOUND.getMessage(), ErrorCode.TOKEN_NOT_FOUND)
         );
 
@@ -140,7 +139,7 @@ public class AuthService {
 
         Date now = new Date();
         LocalDateTime localDateTime = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-        user.setDeletedAt(localDateTime);
+//        user.setDeletedAt(localDateTime);
 
         User updateUser = userRepository.save(user);
         return new UserDto(updateUser);

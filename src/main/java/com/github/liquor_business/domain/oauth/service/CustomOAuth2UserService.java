@@ -55,8 +55,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     }
 
     private void saveOrUpdate(User user) {
-        User findUser = userRepository.findByEmailAndSocialName(user.getEmail(), user.getSocialName())
-                .map(m -> m.update(user.getSocialUserId(), user.getSocialName(), user.getEmail(), user.getUserName()))
+        User findUser = userRepository.findByEmailAndSocialType(user.getEmail(), user.getSocialType())
+                .map(m -> m.update(user.getSocialId(), user.getSocialType(), user.getEmail(), user.getUserName()))
                 .orElse(user);
 
         log.info("findUser = {}" , findUser);
