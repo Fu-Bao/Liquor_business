@@ -31,10 +31,8 @@ public class OAuthAttributes {
     */
     public static OAuthAttributes of(SocialType socialType,
                                      String userNameAttributeName, Map<String, Object> attributes) {
-        if (socialType == SocialType.KAKAO) {
+//        if (socialType == SocialType.KAKAO) {
             return ofKakao(userNameAttributeName, attributes);
-        }
-        return ofGoogle(userNameAttributeName, attributes);
     }
 
     private static OAuthAttributes ofKakao(String userNameAttributeName, Map<String, Object> attributes) {

@@ -3,11 +3,6 @@ spring:
     oauth2:
       client:
         registration:
-          google:
-            client-id: ${Google_OAuth_Client_ID}
-            client-secret: ${Google_OAuth_Client_Secret}
-            scope: profile, email
-
           kakao:
             client-id: ${Kakao_OAuth_Client_ID}
             client-secret: ${Kakao_OAuth_Client_Secret}
