@@ -41,6 +41,7 @@ public class UserService {
                 .email(signupDto.getEmail())
                 .password(signupDto.getPassword())
                 .username(signupDto.getUsername())
+                .imageUrl("anonymous.png")
                 .role(Role.USER)
                 .createdAt(LocalDateTime.now())
                 .refreshToken(jwtService.createRefreshToken())
@@ -73,7 +74,6 @@ public class UserService {
 
 
         user.setImageUrl(updateUser.getImageUrl());
-        user.setEmail(updateUser.getEmail());
         user.setPassword(encodedPassword);
         user.setUsername(updateUser.getUsername());
 

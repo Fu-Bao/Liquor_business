@@ -7,9 +7,11 @@ import com.github.liquor_business.domain.user.dto.UserResponseDto;
 import com.github.liquor_business.domain.user.service.UserService;
 import com.github.liquor_business.exception.AppException;
 import com.github.liquor_business.exception.ErrorCode;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
@@ -23,13 +25,17 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/signup")
-    public String signUp(@RequestBody SignupDto signupDto) throws Exception {
+    public ResponseEntity<?> signUp(@Valid @RequestBody SignupDto signupDto, BindingResult bindingResult) throws Exception {
+        if(bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+        }
+
         userService.signup(signupDto);
-        return "회원가입 성공";
+        return ResponseEntity.ok("회원가입 성공");
     }
 
     // 마이페이지
-    @GetMapping("/user/myPage")
+    @GetMapping("/v1/user/myPage")
     public ResponseEntity<?> getUser(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
         String email = customUserDetails.getUsername();
         UserResponseDto userResponseDto = userService.getUser(email);
@@ -38,8 +44,7 @@ public class UserController {
     }
 
     // 유저정보 추가 입력
-    // TODO: 이미지 업로드 구현해야함
-    @PutMapping("/user/update/{userId}")
+    @PutMapping("/v1/user/update/{userId}")
     public ResponseEntity<?> updateUser(
             @PathVariable Long userId,
             @RequestBody UpdateUser updateUser,
