@@ -1,4 +1,4 @@
-package com.github.liquor_business.domain.user.entitiy;
+package com.github.liquor_business.domain.user.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
